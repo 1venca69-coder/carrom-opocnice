@@ -1,6 +1,16 @@
 const cachePrefix = `carrom-opocnice:${self.registration.scope}:`;
-const cacheName = `${cachePrefix}v7`;
-const assets = ["./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png",
+const cacheName = `${cachePrefix}v9`;
+const assets = ["./fotogalerie/letohrad-2026-10-03-26.jpg", "./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png",
+  "./fotogalerie/letohrad-2026-10-03-04.jpg",
+  "./fotogalerie/letohrad-2026-10-03-05.jpg",
+  "./fotogalerie/letohrad-2026-10-03-15.jpg",
+  "./fotogalerie/letohrad-2026-10-03-18.jpg",
+  "./fotogalerie/letohrad-2026-10-03-20.jpg",
+  "./fotogalerie/letohrad-2026-10-03-21.jpg",
+  "./fotogalerie/letohrad-2026-10-03-22.jpg",
+  "./fotogalerie/letohrad-2026-10-03-24.jpg",
+  "./fotogalerie/letohrad-2026-10-03-28.jpg",
+  "./fotogalerie/letohrad-2026-10-03-31.jpg",
   "./fotogalerie/opoliga-2026-11-04-1.jpg",
   "./fotogalerie/opoliga-2026-11-04-2.jpg"];
 const appFiles = ["./", "./index.html", "./CMV_Carrom_kartoteka.html", ...assets];
