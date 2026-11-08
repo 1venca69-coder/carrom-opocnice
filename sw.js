@@ -1,5 +1,5 @@
 const cachePrefix = `carrom-opocnice:${self.registration.scope}:`;
-const cacheName = `${cachePrefix}v6`;
+const cacheName = `${cachePrefix}v7`;
 const assets = ["./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png",
   "./fotogalerie/opoliga-2026-11-04-1.jpg",
   "./fotogalerie/opoliga-2026-11-04-2.jpg"];
