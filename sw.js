@@ -1,6 +1,8 @@
 const cachePrefix = `carrom-opocnice:${self.registration.scope}:`;
-const cacheName = `${cachePrefix}v5`;
-const assets = ["./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png"];
+const cacheName = `${cachePrefix}v6`;
+const assets = ["./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png",
+  "./fotogalerie/opoliga-2026-11-04-1.jpg",
+  "./fotogalerie/opoliga-2026-11-04-2.jpg"];
 const appFiles = ["./", "./index.html", "./CMV_Carrom_kartoteka.html", ...assets];
 
 self.addEventListener("install", event => {
