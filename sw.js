@@ -1,6 +1,6 @@
 const cachePrefix = `carrom-opocnice:${self.registration.scope}:`;
-const cacheName = `${cachePrefix}v14`;
-const assets = ["./fotogalerie/hra-u-dvou-desek.jpg", "./fotogalerie/skupinova-fotografie.jpg", "./fotogalerie/letohrad-2026-10-03-26.jpg", "./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png",
+const cacheName = `${cachePrefix}v15`;
+const assets = ["./fotogalerie/turnajove-poradi.jpg", "./fotogalerie/hra-u-dvou-desek.jpg", "./fotogalerie/skupinova-fotografie.jpg", "./fotogalerie/letohrad-2026-10-03-26.jpg", "./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png",
   "./fotogalerie/letohrad-2026-10-03-04.jpg",
   "./fotogalerie/letohrad-2026-10-03-05.jpg",
   "./fotogalerie/letohrad-2026-10-03-15.jpg",

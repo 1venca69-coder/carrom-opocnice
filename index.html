@@ -2,10 +2,13 @@
 #liga summary{box-sizing:border-box;background:#123b73;color:#fff;border-radius:13px;padding:18px;margin:12px 0;font-size:19px;font-weight:700;cursor:pointer}
 #liga summary:focus-visible{outline:3px solid #f5bd42;outline-offset:3px}
 
-#fotky details > summary { cursor: pointer; font-weight: 700; padding: 12px 16px; color: #fff; background: #123b73; border-radius: 8px; margin: 12px 0; }
+#turnaje .tournament > summary, #fotky details > summary { cursor: pointer; font-weight: 700; padding: 12px 16px; color: #fff; background: #123b73; border-radius: 8px; margin: 12px 0; }
 #fotky details > summary:hover, #fotky details[open] > summary { background: #0c2a52; }
 #fotky details > summary:focus-visible { outline: 3px solid #123b73; outline-offset: 3px; }
-</style></head><body><header><img class="logo" src="ikona-512.png" alt="Znak klubu"><h1>Modrá síla Opočnice!</h1><div>I. carrom club Opočnice</div></header><main><div id="menu"><button onclick="show('clenove')">Členové a kartotéka</button><button onclick="show('liga')">Bernard Opoliga 2026</button><button onclick="show('turnaje')">Turnaje</button><button onclick="show('schuze')">Schůze klubu</button><button onclick="show('fotky')">Fotogalerie</button><button onclick="show('chat')">Klubový chat</button><button onclick="show('info')">O klubu</button></div><section id="clenove"><h2>Členové</h2><p>Otevři klubovou kartotéku hráčů s profily, výsledky a fotogaleriemi.</p><a class="navlink" href="CMV_Carrom_kartoteka.html">Otevřít kartotéku hráčů</a></section><section id="liga"><h2>Bernard Opoliga 2026</h2>
+#turnaje details > summary{cursor:pointer}
+#turnaje .navlink{margin:12px 0}
+.ranking-photo{display:block;width:100%;max-width:480px;height:auto}
+</style></head><body><header><img class="logo" src="ikona-512.png" alt="Znak klubu"><h1>Modrá síla Opočnice!</h1><div>I. carrom club Opočnice</div></header><main><div id="menu"><button onclick="show('clenove')">Členové a kartotéka</button><button onclick="show('liga')">Bernard Opoliga 2026</button><button onclick="location.hash = 'turnaje'">Turnaje</button><button onclick="show('schuze')">Schůze klubu</button><button onclick="show('fotky')">Fotogalerie</button><button onclick="show('chat')">Klubový chat</button><button onclick="show('info')">O klubu</button></div><section id="clenove"><h2>Členové</h2><p>Otevři klubovou kartotéku hráčů s profily, výsledky a fotogaleriemi.</p><a class="navlink" href="CMV_Carrom_kartoteka.html">Otevřít kartotéku hráčů</a></section><section id="liga"><h2>Bernard Opoliga 2026</h2>
 <details name="opoliga">
   <summary>Výsledky</summary>
   <div class="liga-table" tabindex="0" role="region" aria-label="Výsledky zápasů">
@@ -24,7 +27,55 @@
   </table>
 </div>
 </details>
-</section><section id="turnaje"><h2>Turnaje</h2><p>Pro informace a výsledky jednotlivých turnajů.</p></section><section id="schuze"><h2>Schůze klubu</h2><p>Archiv zápisů ze schůzí – zatím bez nahraných dokumentů.</p></section><section id="fotky"><h2>Fotogalerie</h2>
+</section><section id="turnaje">
+  <h2>Turnaje</h2>
+  <details class="tournament">
+    <summary>Pelhřimov 2026</summary>
+    <p>Jarní turnaj MČR · <time datetime="2026-04-11">11. 4. 2026</time></p>
+    <details>
+      <summary>Výsledková tabulka</summary>
+      <p>Finále vyhrál Ajay Sekhesh nad Zdeňkem Svitákem 25 : 13.</p>
+      <div class="liga-table" tabindex="0" role="region" aria-label="Konečné pořadí v Pelhřimově">
+        <table>
+          <caption>Konečné pořadí</caption>
+          <thead><tr><th scope="col">Místo</th><th scope="col">Hráč</th><th scope="col">Země</th><th scope="col">Klub</th><th scope="col">Body</th><th scope="col">Bch</th><th scope="col">Net</th><th scope="col">Bnt</th></tr></thead>
+          <tbody>
+          <tr><td>1</td><td>Ajay Sekhesh</td><td>IND</td><td>Prague Carrom League</td><td>14</td><td>58</td><td>100</td><td>100,00</td></tr>
+          <tr><td>2</td><td>Zdeněk Sviták</td><td>CZE</td><td>Prague Carrom League</td><td>10</td><td>63</td><td>97</td><td>92,37</td></tr>
+          <tr><td>3</td><td>Karel „Karlos“ Novák</td><td>CZE</td><td>Carrom Medlešice</td><td>10</td><td>62</td><td>72</td><td>84,76</td></tr>
+          <tr><td>4</td><td>Matěj Bednář</td><td>CZE</td><td>Czech Carrom Association</td><td>10</td><td>55</td><td>57</td><td>77,15</td></tr>
+          <tr><td>5</td><td>František Červenka</td><td>CZE</td><td>Czech Carrom Association</td><td>8</td><td>55</td><td>37</td><td>69,54</td></tr>
+          <tr><td>6</td><td>Jan Těšitel</td><td>CZE</td><td>Prague Carrom League</td><td>8</td><td>49</td><td>28</td><td>61,92</td></tr>
+          <tr><td>7</td><td>Pavel „Šéfik“ Schierl</td><td>CZE</td><td>Carrom Medlešice</td><td>8</td><td>38</td><td>50</td><td>54,31</td></tr>
+          <tr><td>8</td><td>František Rezek</td><td>CZE</td><td>Prague Carrom League</td><td>6</td><td>56</td><td>-10</td><td>46,68</td></tr>
+          <tr><td>9</td><td>Tomáš Chmelař</td><td>CZE</td><td>Czech Carrom Association</td><td>6</td><td>55</td><td>-21</td><td>39,07</td></tr>
+          <tr><td>10</td><td>Petr Starý</td><td>CZE</td><td>Carrom Medlešice</td><td>6</td><td>39</td><td>-55</td><td>31,46</td></tr>
+          <tr><td>11</td><td>Veronika Stejskalová</td><td>CZE</td><td>Popůvky</td><td>5</td><td>39</td><td>-67</td><td>23,85</td></tr>
+          <tr><td>12</td><td>Václav Herčík</td><td>CZE</td><td>I. Carrom club Opočnice</td><td>3</td><td>41</td><td>-62</td><td>16,23</td></tr>
+          <tr><td>13</td><td>Martin Rosůlek</td><td>CZE</td><td>I. Carrom club Opočnice</td><td>3</td><td>37</td><td>-84</td><td>8,61</td></tr>
+          <tr><td>14</td><td>Miloš Konvalina</td><td>CZE</td><td>I. Carrom club Opočnice</td><td>1</td><td>39</td><td>-142</td><td>1,00</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><a href="https://www.carrom.cz/adresar_dokumenty/jarni_turnaj_2026.pdf">Oficiální výsledková listina asociace (PDF)</a></p>
+    </details>
+    <a class="navlink" href="#album-pelhrimov-2026-04-11">Fotky</a>
+  </details>
+  <details class="tournament">
+    <summary>Letohrad 2026</summary>
+    <p>Druhý turnaj MČR · <time datetime="2026-10-03">3. 10. 2026</time></p>
+    <details>
+      <summary>Výsledková tabulka</summary>
+      <p>Finále vyhrál Ajay Sekhesh nad Karlosem Novákem 25 : 17.</p>
+      <p>Tabulka níže zachycuje všech 21 hráčů po sedmém kole před finále.</p>
+      <a href="fotogalerie/turnajove-poradi.jpg">
+        <img class="ranking-photo" src="fotogalerie/turnajove-poradi.jpg" width="811" height="1440" loading="lazy" alt="Zvětšit tabulku pořadí po sedmém kole v Letohradě">
+      </a>
+      <p><a href="https://medium.seznam.cz/clanek/venca-1111-hlasime-se-z-letohradu-328951">Klubová reportáž s výsledkem finále</a></p>
+    </details>
+    <a class="navlink" href="#album-letohrad-2026-10-03">Fotky</a>
+  </details>
+</section><section id="schuze"><h2>Schůze klubu</h2><p>Archiv zápisů ze schůzí – zatím bez nahraných dokumentů.</p></section><section id="fotky"><h2>Fotogalerie</h2>
 <details id="album-bernard-opoliga-2026">
 <summary>Bernard Opoliga 2026</summary>
 <figure>
@@ -193,4 +244,17 @@ const datedMatches = [...leagueResults.rows].map(row => ({
 datedMatches.sort((first, second) => second.date.localeCompare(first.date));
 leagueResults.append(...datedMatches.map(match => match.row));
 
-function show(id){document.getElementById('menu').style.display='none';document.querySelectorAll('section').forEach(s=>s.classList.toggle('active',s.id===id));document.getElementById('back').style.display='block';if(id==='chat')render()}function home(){document.getElementById('menu').style.display='block';document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById('back').style.display='none'}function render(){let a=JSON.parse(localStorage.getItem('carromChat')||'[]');document.getElementById('messages').replaceChildren(...a.map(x=>{let e=document.createElement('article');e.textContent=x.n+': '+x.m;return e}))}function send(){let n=document.getElementById('nick').value.trim(),m=document.getElementById('msg').value.trim();if(!n||!m)return alert('Vyplň jméno a zprávu');let a=JSON.parse(localStorage.getItem('carromChat')||'[]');a.push({n,m});localStorage.setItem('carromChat',JSON.stringify(a));document.getElementById('msg').value='';render()}if("serviceWorker" in navigator && location.protocol.startsWith("http")){navigator.serviceWorker.register("sw.js").catch(()=>{})}</script></body></html>
+function openLinkedSection() {
+  const target = document.getElementById(location.hash.slice(1));
+  if (target?.id === 'turnaje') {
+    show('turnaje');
+  } else if (target?.matches('#fotky > details[id^="album-"]')) {
+    show('fotky');
+    target.open = true;
+    target.scrollIntoView();
+  }
+}
+window.addEventListener('hashchange', openLinkedSection);
+openLinkedSection();
+
+function show(id){document.getElementById('menu').style.display='none';document.querySelectorAll('section').forEach(s=>s.classList.toggle('active',s.id===id));document.getElementById('back').style.display='block';if(id==='chat')render()}function home(){if(location.hash)history.replaceState(null,"",location.pathname+location.search);document.getElementById('menu').style.display='block';document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById('back').style.display='none'}function render(){let a=JSON.parse(localStorage.getItem('carromChat')||'[]');document.getElementById('messages').replaceChildren(...a.map(x=>{let e=document.createElement('article');e.textContent=x.n+': '+x.m;return e}))}function send(){let n=document.getElementById('nick').value.trim(),m=document.getElementById('msg').value.trim();if(!n||!m)return alert('Vyplň jméno a zprávu');let a=JSON.parse(localStorage.getItem('carromChat')||'[]');a.push({n,m});localStorage.setItem('carromChat',JSON.stringify(a));document.getElementById('msg').value='';render()}if("serviceWorker" in navigator && location.protocol.startsWith("http")){navigator.serviceWorker.register("sw.js").catch(()=>{})}</script></body></html>
