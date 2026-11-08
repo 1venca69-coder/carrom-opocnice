@@ -1,6 +1,7 @@
 const cachePrefix = `carrom-opocnice:${self.registration.scope}:`;
-const cacheName = `${cachePrefix}v1`;
-const appFiles = ["./", "./index.html", "./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png"];
+const cacheName = `${cachePrefix}v2`;
+const assets = ["./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png"];
+const appFiles = ["./", "./index.html", "./CMV_Carrom_kartoteka.html", ...assets];
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(cacheName).then(cache => cache.addAll(appFiles)));
@@ -26,7 +27,7 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  if (appFiles.slice(2).some(file => url.href === new URL(file, self.registration.scope).href)) {
+  if (assets.some(file => url.href === new URL(file, self.registration.scope).href)) {
     event.respondWith(fetch(request).catch(async () => {
       const cache = await caches.open(cacheName);
       return (await cache.match(request)) || Response.error();
