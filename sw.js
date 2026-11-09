@@ -1,5 +1,5 @@
 const cachePrefix = `carrom-opocnice:${self.registration.scope}:`;
-const cacheName = `${cachePrefix}v18`;
+const cacheName = `${cachePrefix}v19`;
 const assets = ["./fotogalerie/turnajove-poradi.jpg", "./fotogalerie/hra-u-dvou-desek.jpg", "./fotogalerie/skupinova-fotografie.jpg", "./fotogalerie/letohrad-2026-10-03-26.jpg", "./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png",
   "./fotogalerie/letohrad-2026-10-03-04.jpg",
   "./fotogalerie/letohrad-2026-10-03-05.jpg",
@@ -36,7 +36,7 @@ self.addEventListener("fetch", event => {
   const url = new URL(request.url);
   if (request.method !== "GET" || !url.href.startsWith(self.registration.scope)) return;
 
-  if (request.mode === "navigate") {
+  if (request.mode === "navigate" || url.href === new URL("./index.html", self.registration.scope).href) {
     event.respondWith(fetch(request, { cache: "no-cache" }).catch(async () => {
       const cache = await caches.open(cacheName);
       return (await cache.match(request, { ignoreSearch: true })) || Response.error();
