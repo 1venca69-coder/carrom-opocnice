@@ -347,12 +347,39 @@
   </div>
 </section><button id="back" class="back" style="display:none" onclick="home()">← Zpět na úvod</button></main><script>
 const leagueResults = document.getElementById('liga-results');
-const datedMatches = [...leagueResults.rows].map(row => ({
-  row,
-  date: row.querySelector('time[datetime]')?.dateTime || ''
-}));
-datedMatches.sort((first, second) => second.date.localeCompare(first.date));
-leagueResults.append(...datedMatches.map(match => match.row));
+const standings = new Map();
+for (const row of leagueResults.rows) {
+  if (row.cells.length !== 4) continue;
+  const [, first, second, result] = [...row.cells].map(cell => cell.textContent.trim());
+  const score = result.match(/^(\d+)\s*:\s*(\d+)$/);
+  if (!score) continue;
+  const [a, b] = score.slice(1).map(Number);
+  for (const [name, own, against] of [[first, a, b], [second, b, a]]) {
+    if (!standings.has(name)) standings.set(name, { name, played: 0, wins: 0, draws: 0, losses: 0, points: 0, own: 0, against: 0 });
+    const player = standings.get(name);
+    player.played++;
+    player.own += own;
+    player.against += against;
+    if (own > against) { player.wins++; player.points += 2; }
+    else if (own === against) { player.draws++; player.points++; }
+    else player.losses++;
+  }
+}
+const ranked = [...standings.values()].sort((a, b) => b.points - a.points);
+const standingsBody = document.querySelector('table[aria-label="Pořadí Bernard Opoligy 2026"] tbody');
+if (ranked.length) {
+  standingsBody.replaceChildren();
+  let place = 0;
+  ranked.forEach((player, index) => {
+    if (!index || player.points !== ranked[index - 1].points) place = index + 1;
+    const difference = player.own - player.against;
+    const row = standingsBody.insertRow();
+    for (const value of [place, player.name, player.played, player.wins, player.draws, player.losses, player.points,
+      player.own + ' : ' + player.against, (difference > 0 ? '+' : '') + difference]) {
+      row.insertCell().textContent = value;
+    }
+  });
+}
 
 function openLinkedSection() {
   const target = document.getElementById(location.hash.slice(1));
