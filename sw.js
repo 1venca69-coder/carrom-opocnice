@@ -1,5 +1,5 @@
 const cachePrefix = `carrom-opocnice:${self.registration.scope}:`;
-const cacheName = `${cachePrefix}v17`;
+const cacheName = `${cachePrefix}v18`;
 const assets = ["./fotogalerie/turnajove-poradi.jpg", "./fotogalerie/hra-u-dvou-desek.jpg", "./fotogalerie/skupinova-fotografie.jpg", "./fotogalerie/letohrad-2026-10-03-26.jpg", "./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png",
   "./fotogalerie/letohrad-2026-10-03-04.jpg",
   "./fotogalerie/letohrad-2026-10-03-05.jpg",
@@ -17,7 +17,11 @@ const assets = ["./fotogalerie/turnajove-poradi.jpg", "./fotogalerie/hra-u-dvou-
 const appFiles = ["./", "./index.html", "./CMV_Carrom_kartoteka.html", ...assets];
 
 self.addEventListener("install", event => {
-  event.waitUntil(caches.open(cacheName).then(cache => cache.addAll(appFiles)));
+  event.waitUntil((async () => {
+    const cache = await caches.open(cacheName);
+    await cache.addAll(appFiles.map(file => new Request(new URL(file, self.registration.scope), { cache: "reload" })));
+    await self.skipWaiting();
+  })());
 });
 
 self.addEventListener("activate", event => {
@@ -33,7 +37,7 @@ self.addEventListener("fetch", event => {
   if (request.method !== "GET" || !url.href.startsWith(self.registration.scope)) return;
 
   if (request.mode === "navigate") {
-    event.respondWith(fetch(request).catch(async () => {
+    event.respondWith(fetch(request, { cache: "no-cache" }).catch(async () => {
       const cache = await caches.open(cacheName);
       return (await cache.match(request, { ignoreSearch: true })) || Response.error();
     }));
