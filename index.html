@@ -42,8 +42,8 @@
 #fotky .deck-ghost{position:absolute;inset:12px 15px auto;z-index:3;pointer-events:none;overflow:hidden;animation:carrom-card-out .42s ease-in both}
 #fotky .deck-ghost.reverse{animation-name:carrom-card-out-back}
 #fotky .deck-enter{animation:carrom-card-in .42s ease-out both}
-@keyframes carrom-card-out{to{transform:translateX(27%) rotate(13deg) scale(.96);opacity:0}}
-@keyframes carrom-card-out-back{to{transform:translateX(-27%) rotate(-13deg) scale(.96);opacity:0}}
+@keyframes carrom-card-out{to{transform:translateX(-27%) rotate(-13deg) scale(.96);opacity:0}}
+@keyframes carrom-card-out-back{to{transform:translateX(27%) rotate(13deg) scale(.96);opacity:0}}
 @keyframes carrom-card-in{from{transform:rotate(-3deg) scale(.97)}to{transform:rotate(0) scale(1)}}
 .carrom-photo-dialog{border:0;border-radius:12px;padding:12px;max-width:95vw;max-height:92vh;background:white;color:#18391d;overflow:auto;box-sizing:border-box}
 .carrom-photo-dialog::backdrop{background:#000d}
