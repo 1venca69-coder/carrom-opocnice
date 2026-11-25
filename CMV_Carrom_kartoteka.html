@@ -5,6 +5,40 @@ summary small{color:inherit}
 summary:hover,details[open]>summary:hover{background:#17491d}
 summary:focus-visible{outline-offset:2px}
 .photo img{height:auto}
+/* Photo cards: original albums and captions remain the source. */
+.player-gallery .carrom-deck{margin:12px 0 22px}
+.player-gallery .carrom-deck [hidden]{display:none!important}
+.player-gallery.card-mode>figure,.player-gallery.card-mode>h3{display:none}
+.player-gallery .deck-stage{position:relative;isolation:isolate;padding:12px 15px 17px;touch-action:pan-y;perspective:1000px}
+.player-gallery .deck-stage .deck-back{position:absolute;inset:12px 15px 17px;border:1px solid #a5c8a8;border-radius:15px;background:#edf5ed;box-shadow:0 3px 12px #0002;pointer-events:none}
+.player-gallery .deck-back.one{transform:rotate(-3deg) translate(-5px,3px)}
+.player-gallery .deck-back.two{transform:rotate(3deg) translate(5px,6px)}
+.player-gallery .deck-front{position:relative;background:white;border:1px solid #c4d6c5;border-radius:14px;box-shadow:0 5px 16px #0003;padding:8px;min-width:0}
+.player-gallery .deck-front figure{margin:0;border:0;padding:0}
+.player-gallery .deck-front img{width:100%;height:clamp(180px,48vw,340px);object-fit:contain;background:#edf5ed}
+.player-gallery .deck-front figcaption{overflow-wrap:anywhere;padding:10px 3px 3px}
+.player-gallery .deck-front .deck-group{font-size:14px;font-weight:bold;margin:0 0 7px}
+.player-gallery .deck-count{text-align:center;font-size:14px;margin:4px 0 9px}
+.player-gallery .deck-buttons{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.player-gallery .deck-buttons button,.player-gallery .deck-mode-toggle,.player-gallery .deck-zoom{width:auto;margin:0;flex:1;padding:10px;font-size:14px;text-align:center;min-height:44px}
+.player-gallery .deck-buttons button:disabled{opacity:.45}
+.player-gallery .deck-mode-toggle{display:block;width:100%;margin-top:9px;background:#173568}
+.player-gallery .deck-front .deck-zoom{display:block;width:100%;margin:8px 0 0;background:#173568}
+.player-gallery .deck-ghost{position:absolute;inset:12px 15px auto;z-index:3;pointer-events:none;overflow:hidden;animation:carrom-card-out .42s ease-in both}
+.player-gallery .deck-ghost.reverse{animation-name:carrom-card-out-back}
+.player-gallery .deck-enter{animation:carrom-card-in .42s ease-out both}
+@keyframes carrom-card-out{to{transform:translateX(-27%) rotate(-13deg) scale(.96);opacity:0}}
+@keyframes carrom-card-out-back{to{transform:translateX(27%) rotate(13deg) scale(.96);opacity:0}}
+@keyframes carrom-card-in{from{transform:rotate(-3deg) scale(.97)}to{transform:rotate(0) scale(1)}}
+.carrom-photo-dialog{border:0;border-radius:12px;padding:12px;max-width:95vw;max-height:92vh;background:white;color:#18391d;overflow:auto;box-sizing:border-box}
+.carrom-photo-dialog::backdrop{background:#000d}
+.carrom-photo-dialog img{display:block;max-width:100%;max-height:70vh;object-fit:contain;margin:auto}
+.carrom-photo-dialog button{width:100%;margin:8px 0 0;text-align:center;padding:10px;font-size:16px}
+@media(prefers-reduced-motion:reduce){.player-gallery .deck-ghost,.player-gallery .deck-enter{animation:none}}
+
+
+.player-gallery .deck-front img{max-width:none;margin:0;border-radius:10px}.player-gallery .deck-buttons button{min-width:0}.player-gallery .deck-front figcaption{color:#17212c}.player-gallery .deck-stage{box-sizing:border-box}.player-gallery .deck-mode-toggle,.player-gallery .deck-front .deck-zoom{background:#173568!important}
+
 </style><meta content="#256b2b" name="theme-color"/><meta name="theme-color" content="#256b2b"/><link href="./manifest.webmanifest" rel="manifest"/><link rel="icon" type="image/png" href="./ikona-192.png"/></head><body><main><header><img alt="Původní znak I. carrom club Opočnice" src="./ikona-512.png"/><h1>Modrá síla Opočnice!</h1></header><p><a href="./">← Zpět na úvod aplikace</a></p><div id="kartoteka-hracu">
 <p class="notice">Klubová kartotéka – pracovní verze. Údaje a fotografie jsou převzaty z existující klubové kartotéky.</p><p>Klepni na jméno hráče, potom na Fotogalerii. Po načtení aplikace jsou fotky dostupné i bez internetu.</p><details id="martin-rosulek"><summary>Martin Rosůlek <small>– Předseda · Hráč A mužstva</small></summary><details class="player-results" data-league-player="Martin Rosůlek"><summary>Výsledky · Bernard Opoliga 2026</summary><p role="status">Načítám výsledky…</p></details>
 <details class="player-gallery"><summary>Fotogalerie</summary>
@@ -222,4 +256,90 @@ function openPlayerGallery() {
 }
 openPlayerGallery();
 window.addEventListener('hashchange', openPlayerGallery);
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(()=>{});</script></body></html>
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+(function setupCarromPhotoCards(){
+  const gallery=document.querySelector('main');
+  if(!gallery)return;
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const node=(tag,cls,txt)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(txt!==undefined)el.textContent=txt;return el;};
+  const button=(cls,txt,click)=>{const el=node('button',cls,txt);el.type='button';el.addEventListener('click',click);return el;};
+  gallery.querySelectorAll('details.player-gallery').forEach(album=>{
+    let group='';
+    const items=[];
+    Array.from(album.children).forEach(child=>{
+      if(child.tagName==='H3')group=child.textContent;
+      if(child.tagName==='FIGURE'&&child.querySelector('img'))items.push({figure:child,group});
+    });
+    if(!items.length)return;
+    let index=0,playing=items.length>1&&!reduce.matches,cardMode=true,visible=false,last=0,drag=null;
+    const deck=node('div','carrom-deck');
+    const content=node('div','deck-content');
+    const stage=node('div','deck-stage');
+    stage.tabIndex=0;stage.setAttribute('aria-label','Fotografie: šipky vlevo a vpravo');
+    for(const cl of ['one','two']){const back=node('div','deck-back '+cl);back.setAttribute('aria-hidden','true');if(items.length===1)back.hidden=true;stage.append(back);}
+    const front=node('div','deck-front');stage.append(front);
+    const count=node('div','deck-count');
+    const controls=node('div','deck-buttons');
+    const prev=button('','← Předchozí',()=>step(-1));
+    const next=button('','Další →',()=>step(1));
+    const play=button('','',()=>{playing=!playing;last=Date.now();updateControls();});
+    const toggle=button('deck-mode-toggle','Původní přehled fotografií',()=>{
+      cardMode=!cardMode;album.classList.toggle('card-mode',cardMode);content.hidden=!cardMode;
+      toggle.textContent=cardMode?'Původní přehled fotografií':'Zobrazit fotky jako karty';
+      last=Date.now();
+    });
+    controls.append(prev,play,next);content.append(stage,count,controls);deck.append(content,toggle);
+    function updateControls(){
+      prev.disabled=next.disabled=play.disabled=items.length<2;
+      play.textContent=playing?'Ⅱ Pozastavit':'▶ Přehrávat';
+      play.setAttribute('aria-pressed',String(playing));
+      count.textContent=(index+1)+' / '+items.length;
+    }
+    function zoom(item){
+      const old=item.figure.querySelector('img');
+      if(typeof HTMLDialogElement==='undefined'){window.open(old.currentSrc||old.src,'_blank','noopener');return;}
+      const dialog=node('dialog','carrom-photo-dialog');
+      const image=old.cloneNode(true);image.removeAttribute('width');image.removeAttribute('height');image.loading='eager';
+      const caption=item.figure.querySelector('figcaption');
+      dialog.append(image);
+      if(caption){const text=node('div');text.append(...Array.from(caption.childNodes).map(n=>n.cloneNode(true)));dialog.append(text);}
+      const close=button('','Zavřít ×',()=>dialog.close());
+      dialog.append(close);document.body.append(dialog);last=Date.now();
+      dialog.addEventListener('close',()=>{dialog.remove();last=Date.now();},{once:true});
+      dialog.showModal();
+    }
+    function draw(){
+      const item=items[index];const fig=item.figure.cloneNode(true);
+      fig.removeAttribute('id');fig.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
+      const img=fig.querySelector('img');img.loading='eager';
+      const parts=[];
+      if(item.group)parts.push(node('p','deck-group',item.group));
+      parts.push(fig,button('deck-zoom','Zvětšit fotografii',()=>zoom(item)));
+      front.replaceChildren(...parts);updateControls();
+    }
+    function step(dir){
+      if(items.length<2)return;
+      stage.querySelectorAll('.deck-ghost').forEach(el=>el.remove());
+      if(!reduce.matches){
+        const ghost=front.cloneNode(true);ghost.classList.remove('deck-enter');ghost.classList.add('deck-ghost');if(dir<0)ghost.classList.add('reverse');
+        ghost.setAttribute('aria-hidden','true');ghost.inert=true;ghost.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
+        stage.append(ghost);setTimeout(()=>ghost.remove(),500);
+      }
+      index=(index+dir+items.length)%items.length;draw();last=Date.now();
+      if(!reduce.matches){front.classList.remove('deck-enter');void front.offsetWidth;front.classList.add('deck-enter');}
+    }
+    stage.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();step(e.key==='ArrowLeft'?-1:1);}});
+    stage.addEventListener('pointerdown',e=>{if(e.target.closest('button,a'))return;drag={x:e.clientX,y:e.clientY};});
+    stage.addEventListener('pointerup',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)step(dx<0?1:-1);});
+    stage.addEventListener('pointercancel',()=>{drag=null;});
+    album.addEventListener('toggle',()=>{last=Date.now();});
+    album.querySelector('summary').after(deck);draw();album.classList.add('card-mode');
+    if('IntersectionObserver' in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;last=Date.now();},{threshold:0.15}).observe(stage);else visible=true;
+    setInterval(()=>{
+      if(!playing||!cardMode||!visible||!album.open||document.hidden||document.querySelector('.carrom-photo-dialog[open]')||drag){last=Date.now();return;}
+      if(Date.now()-last>=5000)step(1);
+    },250);
+    last=Date.now();
+  });
+})();
+</script></body></html>
