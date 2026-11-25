@@ -1,5 +1,5 @@
 const cachePrefix = `carrom-opocnice:${self.registration.scope}:`;
-const cacheName = `${cachePrefix}v25`;
+const cacheName = `${cachePrefix}v26`;
 const assets = ["./fotogalerie/turnajove-poradi.jpg", "./fotogalerie/hra-u-dvou-desek.jpg", "./fotogalerie/skupinova-fotografie.jpg", "./fotogalerie/letohrad-2026-10-03-26.jpg", "./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png",
   "./fotogalerie/letohrad-2026-10-03-04.jpg",
   "./fotogalerie/letohrad-2026-10-03-05.jpg",
@@ -13,7 +13,9 @@ const assets = ["./fotogalerie/turnajove-poradi.jpg", "./fotogalerie/hra-u-dvou-
   "./fotogalerie/letohrad-2026-10-03-28.jpg",
   "./fotogalerie/letohrad-2026-10-03-31.jpg",
   "./fotogalerie/opoliga-2026-11-04-1.jpg",
-  "./fotogalerie/opoliga-2026-11-04-2.jpg"];
+  "./fotogalerie/opoliga-2026-11-04-2.jpg",
+  "./fotogalerie/opoliga-2026-11-25-1.webp",
+  "./fotogalerie/opoliga-2026-11-25-2.webp"];
 const appFiles = ["./", "./index.html", "./CMV_Carrom_kartoteka.html", ...assets];
 
 self.addEventListener("install", event => {
