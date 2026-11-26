@@ -1,5 +1,5 @@
 const cachePrefix = `carrom-opocnice:${self.registration.scope}:`;
-const cacheName = `${cachePrefix}v27`;
+const cacheName = `${cachePrefix}v28`;
 const assets = ["./fotogalerie/turnajove-poradi.jpg", "./fotogalerie/hra-u-dvou-desek.jpg", "./fotogalerie/skupinova-fotografie.jpg", "./fotogalerie/letohrad-2026-10-03-26.jpg", "./manifest.webmanifest", "./ikona-192.png", "./ikona-512.png",
   "./fotogalerie/letohrad-2026-10-03-04.jpg",
   "./fotogalerie/letohrad-2026-10-03-05.jpg",
@@ -30,7 +30,7 @@ self.addEventListener("activate", event => {
   event.waitUntil(caches.keys().then(keys => Promise.all(
     keys.filter(key => key.startsWith(cachePrefix) && key !== cacheName)
       .map(key => caches.delete(key))
-  )));
+  )).then(() => self.clients.claim()));
 });
 
 self.addEventListener("fetch", event => {
