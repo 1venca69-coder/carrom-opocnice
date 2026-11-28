@@ -1,0 +1,64 @@
+name: Hlášení zápasů Opoligy
+description: Zápis výsledku jednoho zápasu z telefonu
+title: "[OPOLIGA] Zápas"
+body:
+  - type: markdown
+    attributes:
+      value: "Klubový zápis. Údaje o zápasu jsou veřejné. Uváděj pouze sportovní místo konání, nikoli soukromé adresy. Do evidence se přijímají pouze hlášení z účtu oprávněného správce."
+  - type: input
+    id: datum
+    attributes:
+      label: Datum zápasu
+      placeholder: "2026-11-28"
+      description: "Formát RRRR-MM-DD"
+    validations:
+      required: true
+  - type: input
+    id: misto
+    attributes:
+      label: Místo konání
+      placeholder: "Opočnice – klubovna"
+    validations:
+      required: true
+  - type: dropdown
+    id: hrac1
+    attributes:
+      label: Hráč 1
+      options:
+        - "Martin Rosůlek"
+        - "Vašek Herčík"
+        - "Walda Havránek"
+        - "Jana Brzková"
+        - "Lubošek Ladislav"
+        - "Milda Konvalina"
+        - "Láďa Fiala"
+        - "Borďa Kolář"
+        - "Petr Rohlíček"
+        - "Luboš Šťastný"
+    validations:
+      required: true
+  - type: dropdown
+    id: hrac2
+    attributes:
+      label: Hráč 2
+      options:
+        - "Martin Rosůlek"
+        - "Vašek Herčík"
+        - "Walda Havránek"
+        - "Jana Brzková"
+        - "Lubošek Ladislav"
+        - "Milda Konvalina"
+        - "Láďa Fiala"
+        - "Borďa Kolář"
+        - "Petr Rohlíček"
+        - "Luboš Šťastný"
+    validations:
+      required: true
+  - type: input
+    id: skore
+    attributes:
+      label: Výsledek
+      description: "Body hráče 1 : body hráče 2, například 25 : 7."
+      placeholder: "25 : 7"
+    validations:
+      required: true
