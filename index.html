@@ -54,7 +54,7 @@
 #info .club-articles summary{cursor:pointer;font-weight:700;padding:14px;background:#256b2b;border-radius:8px}#info .club-articles details p{margin:12px 0}
 #info #kronika>summary{font-size:19px;background:#256b2b;padding:18px;border-radius:13px;color:white;cursor:pointer}#info #kronika .chronicle-content{padding-top:12px}
 </style></head><body><header><img class="logo" src="ikona-512.png" alt="Znak klubu"><h1>Modrá síla Opočnice!</h1><div>I. carrom club Opočnice</div></header><main><div id="menu"><aside id="latest-league-results" aria-labelledby="latest-league-title" style="background:white;border:2px solid #256b2b;border-radius:14px;padding:14px;margin:0 0 16px"><h2 id="latest-league-title" style="margin:0 0 8px;font-size:20px">Poslední zápasy – Opoliga 2026</h2><p id="latest-league-date"></p><div id="latest-league-list" aria-live="polite"></div><button type="button" class="back" onclick="show('liga');document.querySelector('#liga details').open=true">Všechny výsledky a tabulka</button></aside><button type="button" onclick="show('hymna');playHymn()" style="background:#173568">♫ Hymna</button><button onclick="show('clenove')">Členové a kartotéka</button><button onclick="show('liga')">Bernard Opoliga 2026</button><button onclick="show('carrom-tv')">Carrom TV</button><button onclick="location.hash = 'turnaje'">Turnaje</button><button onclick="show('schuze')" style="background:#173568">Schůze a zápisy</button><button onclick="show('fotky')">Fotogalerie</button><button onclick="show('chat')">Klubový chat</button><button onclick="show('info')">O klubu</button><button onclick="show('stazeni')">Ke stažení</button></div><section id="hymna"><h2>Hymna</h2><h3>Opočnice v žilách</h3><p>Klubová hymna s opravenou výslovností karom.</p><button type="button" onclick="playHymn()">Přehrát hymnu</button><p>Hymna hraje dál při přecházení mezi sekcemi. Přehrávač zůstává dole na obrazovce.</p></section><section id="kartoteka-inline"><h2>Kartotéka hráčů</h2><iframe id="kartoteka-frame" title="Klubová kartotéka hráčů"></iframe></section><section id="clenove"><h2>Členové</h2><p>Otevři klubovou kartotéku hráčů s profily a fotogaleriemi.</p><a class="navlink" href="CMV_Carrom_kartoteka.html">Otevřít kartotéku hráčů</a>
-<a class="navlink" href="CMV_Carrom_kartoteka.html#hoste">Hosté v klubové fotogalerii</a></section><section id="liga"><h2>Bernard Opoliga 2026</h2><p><a class="navlink" href="https://github.com/1venca69-coder/carrom-opocnice/issues/new?template=opoliga.yml">Hlášení zápasů Opoligy</a></p><p id="opoliga-sync-status" role="status">Načítám online hlášení…</p>
+<a class="navlink" href="CMV_Carrom_kartoteka.html#hoste">Hosté v klubové fotogalerii</a></section><section id="liga"><h2>Bernard Opoliga 2026</h2><p><a class="navlink" href="hlaseni/">Hlášení zápasů Opoligy</a></p><p id="opoliga-sync-status" role="status">Načítám online hlášení…</p>
 <details name="opoliga">
   <summary>Výsledky</summary>
   <div class="liga-table" tabindex="0" role="region" aria-label="Výsledky zápasů">
@@ -708,7 +708,7 @@ recalculateLeague();
 
 function openLinkedSection() {
   const target = document.getElementById(location.hash.slice(1));
-  if (['schuze','chat','stazeni'].includes(target?.id)) { show(target.id); } else if (target?.id === 'turnaje') {
+  if (['schuze','chat','stazeni','liga'].includes(target?.id)) { show(target.id); } else if (target?.id === 'turnaje') {
     show('turnaje');
   } else if (target?.matches('#fotky > details[id^="album-"]')) {
     show('fotky');
