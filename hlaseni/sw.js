@@ -1,0 +1,5 @@
+// Samostatný rozsah hlášení; žádný zápis výsledků offline.
+const CACHE="opoliga-hlaseni-v1";
+self.addEventListener("install",event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);await cache.addAll(["./","./index.html","./manifest.webmanifest","../ikona-192.png","../ikona-512.png"]);await self.skipWaiting();})()));
+self.addEventListener("activate",event=>event.waitUntil((async()=>{for(const key of await caches.keys())if(key.startsWith("opoliga-hlaseni-")&&key!==CACHE)await caches.delete(key);await self.clients.claim();})()));
+self.addEventListener("fetch",event=>{const r=event.request,u=new URL(r.url);if(r.method!=="GET"||!u.href.startsWith(self.registration.scope))return;event.respondWith((async()=>{try{return await fetch(r,{cache:"no-cache"});}catch(e){const cache=await caches.open(CACHE);return (await cache.match(r))||(r.mode==="navigate"?await cache.match("./"):null)||Response.error();}})());});
